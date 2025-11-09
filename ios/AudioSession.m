@@ -17,11 +17,5 @@
 #import <React/RCTBridgeModule.h>
 
 @interface RCT_EXTERN_MODULE(AudioSession, NSObject)
-
 RCT_EXTERN_METHOD(setVoiceProcessingEnabled:(BOOL)enabled)
-
-+ (BOOL)requiresMainQueueSetup {
-  return NO;
-}
-
 @end
