@@ -14,6 +14,10 @@ import AudioSession, {
   type AudioTrackState,
   getDefaultAppleAudioConfigurationForMode,
 } from './audio/AudioSession';
+
+// Re-export convenience function for voice processing control
+export { setVoiceProcessingEnabled } from './audio/AudioSession';
+
 import type { AudioConfiguration } from './audio/AudioSession';
 import { PixelRatio, Platform } from 'react-native';
 import { type LiveKitReactNativeInfo } from 'livekit-client';

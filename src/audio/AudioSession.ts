@@ -1,5 +1,7 @@
-import { Platform } from 'react-native';
+import { NativeModules, Platform } from 'react-native';
 import LiveKitModule from '../LKNativeModule';
+
+const { AudioSession: AudioSessionModule } = NativeModules;
 
 /**
  * Configuration for the underlying AudioSession.
@@ -334,4 +336,32 @@ export default class AudioSession {
       await LiveKitModule.setAppleAudioConfiguration(config);
     }
   };
+
+  /**
+   * iOS only.
+   *
+   * Enable or disable LiveKit's voice processing audio unit on iOS.
+   * When disabled, removes heavy audio filters (AGC, noise suppression, echo cancellation)
+   * that can make audio sound muffled or underwater.
+   *
+   * This should be called before joining a room or as early as possible.
+   *
+   * @param enabled Set to false to disable voice processing and use the default audio unit.
+   * Defaults to true (voice processing enabled).
+   */
+  static setVoiceProcessingEnabled = async (enabled: boolean) => {
+    if (Platform.OS === 'ios') {
+      await AudioSessionModule?.setVoiceProcessingEnabled(enabled);
+    }
+  };
 }
+
+/**
+ * Convenience function to enable or disable LiveKit's voice processing on iOS.
+ * This is equivalent to calling AudioSession.setVoiceProcessingEnabled().
+ *
+ * @param enabled Set to false to disable voice processing and use the default audio unit.
+ */
+export const setVoiceProcessingEnabled = (enabled: boolean): Promise<void> => {
+  return AudioSession.setVoiceProcessingEnabled(enabled);
+};
