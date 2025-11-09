@@ -21,11 +21,18 @@ import LiveKit
 class AudioSession: NSObject {
     
     @objc
+    static func requiresMainQueueSetup() -> Bool {
+        return false
+    }
+    
+    @objc
     func setVoiceProcessingEnabled(_ enabled: Bool) {
-        let manager = AudioManager.shared
-        
-        manager.isVoiceProcessingEnabled = enabled
-        manager.isVoiceProcessingBypassed = !enabled
-        manager.isVoiceProcessingAGCEnabled = enabled
+        DispatchQueue.main.async {
+            let manager = AudioManager.shared
+            
+            manager.isVoiceProcessingEnabled = enabled
+            manager.isVoiceProcessingBypassed = !enabled
+            manager.isVoiceProcessingAGCEnabled = enabled
+        }
     }
 }
