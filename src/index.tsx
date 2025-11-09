@@ -143,15 +143,15 @@ function shimCryptoUuid() {
 }
 
 function shimWebstreams() {
-  // @ts-expect-error: global.WritableStream isn't typed here.
+  // @ts-ignore: global.WritableStream isn't typed here.
   if (typeof global.WritableStream === 'undefined') {
-    // @ts-expect-error
+    // @ts-ignore
     global.WritableStream = WritableStream;
   }
 
-  // @ts-expect-error: global.ReadableStream isn't typed here.
+  // @ts-ignore: global.ReadableStream isn't typed here.
   if (typeof global.ReadableStream === 'undefined') {
-    // @ts-expect-error
+    // @ts-ignore
     global.ReadableStream = ReadableStream;
   }
 }
